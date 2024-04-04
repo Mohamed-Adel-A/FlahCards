@@ -1,3 +1,17 @@
+<<<<<<< HEAD
+=======
+
+POST http://127.0.0.1:3000/api/signup/
+Content-Type: application/json
+
+{
+    "username": "user1",
+    "password": "password"
+}
+
+###
+
+>>>>>>> 19c0104abf2b9c07571eafc533460159bdb49102
 POST http://127.0.0.1:3000/api/login/
 Content-Type: application/json
 
@@ -6,6 +20,19 @@ Content-Type: application/json
     "password": "password"
 }
 
+<<<<<<< HEAD
 
 GET http://127.0.0.1:3000/api/collections/
 Authorization: Token f46232529d35e6f952d3b9f7a0daede8114fabc484aae3970d20d80096690b0c
+=======
+###
+
+GET http://127.0.0.1:3000/api/collections/
+Authorization: Token 3c5b17483070bb965c89a07ed64e2a4e2ec343995fcaf8f856c6999add30e417
+
+###
+
+POST http://127.0.0.1:3000/api/users/logout/
+Authorization: Token ce337e2f763bba16253dfef35c29e473187f328768c6a1568fbba0d3ab1538b2
+
+>>>>>>> 19c0104abf2b9c07571eafc533460159bdb49102
