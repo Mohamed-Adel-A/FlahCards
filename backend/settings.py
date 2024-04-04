@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'flashCards',
     'rest_framework',
+    'api',
 ]
 
 MIDDLEWARE = [
