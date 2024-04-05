@@ -33,7 +33,6 @@ class CollectionRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
 
 ## Card views ##
 class CardCreate(generics.ListCreateAPIView):
-
     serializer_class = CardSerializer
     permission_classes=[permissions.IsAuthenticated]
 

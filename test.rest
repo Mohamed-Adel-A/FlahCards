@@ -22,6 +22,7 @@ Content-Type: application/json
 @token2 = 1eaba78a75ccb3c8be004003078584fad83c6facc807e69dd86744f1adbeec6a
 @token3 = 79ad9fabe835736401d2715264de3a2f76121399e25db52044539bceed056904
 
+@token_from_db = a36b609622076ae17ee5b011e86fb4ef9e64a2f4232aba4faa0387d96f76acf8116418c81f547289eb1ca613733fefd70b8ae358a1fbf0bdaeaaad3e95751416
 ###
 
 ### Test without Token
@@ -30,7 +31,7 @@ GET http://127.0.0.1:8000/api/collections/
 
 ### Test with Token
 GET http://127.0.0.1:8000/api/collections/
-Authorization: Token {{token2}}
+Authorization: Token {{{{token_from_db}}}}
 
 ###
 @subject = Subject2
@@ -69,12 +70,30 @@ Content-Type: application/json
 
 
 ### Get collection Cards
-GET http://127.0.0.1:8000/api/collections/{{collection}}/cards
+GET http://127.0.0.1:8000/api/collections/{{collection}}/cards/
 Authorization: Token {{token1}}
 
 ### Get specific card
-GET http://127.0.0.1:8000/api/collections/{{collection}}/cards/3
+GET http://127.0.0.1:8000/api/collections/{{collection}}/cards/2/
 Authorization: Token {{token1}}
+
+### Edit specific card
+PATCH  http://127.0.0.1:8000/api/collections/{{collection}}/cards/2/
+Authorization: Token {{token1}}
+Content-Type: application/json
+
+{
+    "back" : "new back"
+}
+
+### Edit specific collection
+PATCH  http://127.0.0.1:8000/api/collections/1/
+Authorization: Token {{token1}}
+Content-Type: application/json
+
+{
+    "description" : "new description"
+}
 
 ### Delete collection
 
@@ -103,8 +122,8 @@ Authorization: Token ce337e2f763bba16253dfef35c29e473187f328768c6a1568fbba0d3ab1
 
 ###
 
-POST http://127.0.0.1:8000/api/logout/
-Authorization: Token 276b37f5ad0a87e5706ad9de11e719ff45541a7d4a2c0dc1630b04ca75d236b7
+POST http://127.0.0.1:8000/api/users/logoutall/
+Authorization: Token {{token1}}
 
 ###
 
