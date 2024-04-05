@@ -13,9 +13,16 @@ POST http://127.0.0.1:8000/api/login/
 Content-Type: application/json
 
 {
-    "username": "user",
+    "username": "user2",
     "password": "password"
 }
+
+### Tokens
+@token1 = 7a6360c1fe100820c1e11b1baa29498096320783ac7597c1639091f3c20d7c02
+@token2 = 1eaba78a75ccb3c8be004003078584fad83c6facc807e69dd86744f1adbeec6a
+@token3 = 79ad9fabe835736401d2715264de3a2f76121399e25db52044539bceed056904
+
+###
 
 ### Test without Token
 
@@ -23,30 +30,61 @@ GET http://127.0.0.1:8000/api/collections/
 
 ### Test with Token
 GET http://127.0.0.1:8000/api/collections/
-Authorization: Token 08b72be39c348c85a9763301b5d7b42881b14bf0ce6de4cc078398d49ec6205a
+Authorization: Token {{token2}}
+
+###
+@subject = Subject2
+@category = cat2
 
 ### Create Collection
 
 POST http://127.0.0.1:8000/api/collections/
-Authorization: Token 2fbf9d8c5f97ed937aed5f1b599454609b47b988e24dd7283e0a9a7d383fd400
+Authorization: Token {{token2}}
 Content-Type: application/json
 
 {
-    "name": "Chemistry Flashcards",
-    "description": "Collection of chemistry terms and definitions",
-    "category": "Science",
-    "user": 1
+    "name": "{{subject}} Flashcards",
+    "description": "Collection of {{subject}} terms and definitions",
+    "category": "{{category}}"
 }
 
+### Create cards
+
+@collection = 1
+@cardNumber = 2
+@front = fron_{{cardNumber}}
+@back = back_{{cardNumber}}
+
+
 ###
 
-GET http://127.0.0.1:8000/api/collections/5/cards
-Authorization: Token 08b72be39c348c85a9763301b5d7b42881b14bf0ce6de4cc078398d49ec6205a
+POST http://127.0.0.1:8000/api/collections/{{collection}}/cards/
+Authorization: Token {{token1}}
+Content-Type: application/json
 
-###
+{
+    "front": "{{front}}",
+    "back": "{{back}}"
+}
 
-DELETE http://127.0.0.1:8000/api/collections/4/
-Authorization: Token 2fbf9d8c5f97ed937aed5f1b599454609b47b988e24dd7283e0a9a7d383fd400
+
+### Get collection Cards
+GET http://127.0.0.1:8000/api/collections/{{collection}}/cards
+Authorization: Token {{token1}}
+
+### Get specific card
+GET http://127.0.0.1:8000/api/collections/{{collection}}/cards/3
+Authorization: Token {{token1}}
+
+### Delete collection
+
+DELETE http://127.0.0.1:8000/api/collections/7/
+Authorization: Token {{token1}}
+
+### Delete card
+
+DELETE http://127.0.0.1:8000/api/collections/2/cards/4/
+Authorization: Token {{token1}}
 
 
 ###
@@ -56,54 +94,12 @@ Authorization: Token ce337e2f763bba16253dfef35c29e473187f328768c6a1568fbba0d3ab1
 
 ###
 
-POST http://127.0.0.1:8000/api/collections/
-Authorization: Token 2fbf9d8c5f97ed937aed5f1b599454609b47b988e24dd7283e0a9a7d383fd400
-Content-Type: application/json
 
-{
-    "name": "Chemistry Flashcards",
-    "description": "Collection of chemistry terms and definitions",
-    "category": "Science",
-    "user": 1
-}
-
-
-### User2
-
-POST http://127.0.0.1:8000/api/signup/
-Content-Type: application/json
-
-{
-    "username": "user2",
-    "password": "password"
-}
 
 ###
 
-POST http://127.0.0.1:8000/api/login/
-Content-Type: application/json
-
-{
-    "username": "user2",
-    "password": "password"
-}
 
 ###
-
-POST http://127.0.0.1:8000/api/collections/
-Authorization: Token 3e9fa33e7c2dfabc615c473ddbd21e8990af50399f88fa32fb2e5a06326f05d2
-Content-Type: application/json
-
-{
-    "name": "Math Flashcards",
-    "description": "Collection of Math terms and definitions",
-    "category": "Science",
-    "user" : 2
-}
-###
-
-GET http://127.0.0.1:8000/api/collections/
-Authorization: Token c913b874034273e1e9a372ffb12f3053a9b770c5692e036fc8fd884444798a4f
 
 ###
 
@@ -112,13 +108,3 @@ Authorization: Token 276b37f5ad0a87e5706ad9de11e719ff45541a7d4a2c0dc1630b04ca75d
 
 ###
 
-POST http://127.0.0.1:8000/api/collections/
-Authorization: Token 2fbf9d8c5f97ed937aed5f1b599454609b47b988e24dd7283e0a9a7d383fd400
-Content-Type: application/json
-
-{
-    "name": "Chemistry Flashcards",
-    "description": "Collection of chemistry terms and definitions",
-    "category": "Science",
-    "user": 1
-}

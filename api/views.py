@@ -39,12 +39,16 @@ class CardCreate(generics.ListCreateAPIView):
 
     def get_queryset(self):
         #collection = self.kwargs.get("collection")
-        collection = get_object_or_404(Collection, pk=self.kwargs["collection"])
-        print(collection)
+        collection = get_object_or_404(Collection, 
+                                       pk=self.kwargs["collection"], 
+                                       user=self.request.user)
         return Card.objects.filter(collection=collection).order_by('-created_at')
     
     def perform_create(self, serializer):
-        serializer.save(collection=self.request.collection)
+        collection = get_object_or_404(Collection, 
+                                       pk=self.kwargs["collection"], 
+                                       user=self.request.user)
+        serializer.save(collection=collection)
 
 
 class CardRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
@@ -52,9 +56,11 @@ class CardRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
-        collection = get_object_or_404(Collection, pk=self.kwargs["collection"])
-        #collection = self.kwargs['collection']
+        collection = get_object_or_404(Collection, 
+                                       pk=self.kwargs["collection"], 
+                                       user=self.request.user)
         return Card.objects.filter(collection=collection)
+
 
 
 ############################

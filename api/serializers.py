@@ -4,14 +4,15 @@ from django.contrib.auth.models import User
 
 
 class CollectionSerializer(serializers.ModelSerializer):
+    created_at = serializers.ReadOnlyField()
     class Meta:
         model = Collection
-        fields = '__all__'
+        fields = ['id', 'name', 'description', 'category', 'created_at'] #'__all__'
 
 class CardSerializer(serializers.ModelSerializer):
     class Meta:
         model = Card
-        fields = '__all__'
+        fields = ['id', 'front', 'back']
 
 class UserSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
