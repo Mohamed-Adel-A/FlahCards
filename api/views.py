@@ -8,7 +8,11 @@ from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import get_object_or_404
 
 from rest_framework.views import APIView
+from knox.views import LoginView
 
+# to format expiry date
+from rest_framework.serializers import DateTimeField
+from knox.settings import knox_settings
 
 class CollectionCreate(generics.ListCreateAPIView):
     serializer_class = CollectionSerializer
@@ -94,6 +98,10 @@ class UserRegisterAPIView(APIView):
             return Response({'user': user.username, 'message': 'User registered successfully'}, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+
+class LoginAPI(LoginView):
+    permission_classes = [permissions.AllowAny]
+
 class UserLoginAPIView(APIView):
     permission_classes = [permissions.AllowAny]
 
@@ -104,8 +112,11 @@ class UserLoginAPIView(APIView):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            token = AuthToken.objects.create(user)[1]
-            return Response({'token': token})
+            _, token = AuthToken.objects.create(user)#[1]
+            # get and formate token expiy 
+            datetime_format = knox_settings.EXPIRY_DATETIME_FORMAT
+            expiry = DateTimeField(format=datetime_format).to_representation(_.expiry)
+            return Response({'token': token, 'expiry': expiry})
         else:
             return Response({'error': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
 

@@ -3,6 +3,8 @@ from rest_framework import routers
 from .views import UserRegisterAPIView, UserLoginAPIView, UserLogoutAPIView #CardViewSet, CollectionViewSet,  UserViewSet
 from .views import CollectionCreate, CollectionRetrieveUpdateDestroy
 from .views import CardCreate, CardRetrieveUpdateDestroy
+from .views import LoginAPI
+from knox.views import LogoutView, LogoutAllView
 
 
 router = routers.DefaultRouter()
