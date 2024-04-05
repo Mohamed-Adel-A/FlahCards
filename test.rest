@@ -1,18 +1,5 @@
-<<<<<<< HEAD
-=======
-
-POST http://127.0.0.1:3000/api/signup/
-Content-Type: application/json
-
-{
-    "username": "user1",
-    "password": "password"
-}
-
-###
-
->>>>>>> 19c0104abf2b9c07571eafc533460159bdb49102
-POST http://127.0.0.1:3000/api/login/
+### New User
+POST http://127.0.0.1:8000/api/signup/
 Content-Type: application/json
 
 {
@@ -20,19 +7,118 @@ Content-Type: application/json
     "password": "password"
 }
 
-<<<<<<< HEAD
+### LOgin and generate Token
 
-GET http://127.0.0.1:3000/api/collections/
-Authorization: Token f46232529d35e6f952d3b9f7a0daede8114fabc484aae3970d20d80096690b0c
-=======
+POST http://127.0.0.1:8000/api/login/
+Content-Type: application/json
+
+{
+    "username": "user",
+    "password": "password"
+}
+
+### Test without Token
+
+GET http://127.0.0.1:8000/api/collections/
+
+### Test with Token
+GET http://127.0.0.1:8000/api/collections/
+Authorization: Token 08b72be39c348c85a9763301b5d7b42881b14bf0ce6de4cc078398d49ec6205a
+
+### Create Collection
+
+POST http://127.0.0.1:8000/api/collections/
+Authorization: Token 2fbf9d8c5f97ed937aed5f1b599454609b47b988e24dd7283e0a9a7d383fd400
+Content-Type: application/json
+
+{
+    "name": "Chemistry Flashcards",
+    "description": "Collection of chemistry terms and definitions",
+    "category": "Science",
+    "user": 1
+}
+
 ###
 
-GET http://127.0.0.1:3000/api/collections/
-Authorization: Token 3c5b17483070bb965c89a07ed64e2a4e2ec343995fcaf8f856c6999add30e417
+GET http://127.0.0.1:8000/api/collections/5/cards
+Authorization: Token 08b72be39c348c85a9763301b5d7b42881b14bf0ce6de4cc078398d49ec6205a
 
 ###
 
-POST http://127.0.0.1:3000/api/users/logout/
+DELETE http://127.0.0.1:8000/api/collections/4/
+Authorization: Token 2fbf9d8c5f97ed937aed5f1b599454609b47b988e24dd7283e0a9a7d383fd400
+
+
+###
+
+POST http://127.0.0.1:8000/api/users/logout/
 Authorization: Token ce337e2f763bba16253dfef35c29e473187f328768c6a1568fbba0d3ab1538b2
 
->>>>>>> 19c0104abf2b9c07571eafc533460159bdb49102
+###
+
+POST http://127.0.0.1:8000/api/collections/
+Authorization: Token 2fbf9d8c5f97ed937aed5f1b599454609b47b988e24dd7283e0a9a7d383fd400
+Content-Type: application/json
+
+{
+    "name": "Chemistry Flashcards",
+    "description": "Collection of chemistry terms and definitions",
+    "category": "Science",
+    "user": 1
+}
+
+
+### User2
+
+POST http://127.0.0.1:8000/api/signup/
+Content-Type: application/json
+
+{
+    "username": "user2",
+    "password": "password"
+}
+
+###
+
+POST http://127.0.0.1:8000/api/login/
+Content-Type: application/json
+
+{
+    "username": "user2",
+    "password": "password"
+}
+
+###
+
+POST http://127.0.0.1:8000/api/collections/
+Authorization: Token 3e9fa33e7c2dfabc615c473ddbd21e8990af50399f88fa32fb2e5a06326f05d2
+Content-Type: application/json
+
+{
+    "name": "Math Flashcards",
+    "description": "Collection of Math terms and definitions",
+    "category": "Science",
+    "user" : 2
+}
+###
+
+GET http://127.0.0.1:8000/api/collections/
+Authorization: Token c913b874034273e1e9a372ffb12f3053a9b770c5692e036fc8fd884444798a4f
+
+###
+
+POST http://127.0.0.1:8000/api/logout/
+Authorization: Token 276b37f5ad0a87e5706ad9de11e719ff45541a7d4a2c0dc1630b04ca75d236b7
+
+###
+
+POST http://127.0.0.1:8000/api/collections/
+Authorization: Token 2fbf9d8c5f97ed937aed5f1b599454609b47b988e24dd7283e0a9a7d383fd400
+Content-Type: application/json
+
+{
+    "name": "Chemistry Flashcards",
+    "description": "Collection of chemistry terms and definitions",
+    "category": "Science",
+    "user": 1
+}
