@@ -37,9 +37,9 @@ Content-Type: application/json
 }
 
 ### Tokens
-@token1 = 7a6360c1fe100820c1e11b1baa29498096320783ac7597c1639091f3c20d7c02
-@token2 = 1eaba78a75ccb3c8be004003078584fad83c6facc807e69dd86744f1adbeec6a
-@token3 = 79ad9fabe835736401d2715264de3a2f76121399e25db52044539bceed056904
+@token1 = b563bdb18901ac4e73026dbdf3e1f1c90e02d22a703ab3e6142ecfe48fa549f3
+@token2 = 52fd02e45b515e9195caa369c942f9350134ea1d74be80cd945b43e0d61985fa
+@token3 = 171d46ef152327305d770ac0fcaf262a175257e8981750320d8aad2c64f5bec8
 
 @token_from_db = a36b609622076ae17ee5b011e86fb4ef9e64a2f4232aba4faa0387d96f76acf8116418c81f547289eb1ca613733fefd70b8ae358a1fbf0bdaeaaad3e95751416
 ###
@@ -141,8 +141,8 @@ Authorization: Token ce337e2f763bba16253dfef35c29e473187f328768c6a1568fbba0d3ab1
 
 ###
 
-POST http://127.0.0.1:8000/api/users/logoutall/
-Authorization: Token {{token1}}
+POST http://127.0.0.1:8000/api/logoutall/
+Authorization: Token {{token2}}
 
 ###
 

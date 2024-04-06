@@ -4,7 +4,7 @@ from .views import UserRegisterAPIView, UserLoginAPIView, UserLogoutAPIView #Car
 from .views import CollectionCreate, CollectionRetrieveUpdateDestroy
 from .views import CardCreate, CardRetrieveUpdateDestroy
 from .views import LoginAPI
-from knox.views import LogoutView, LogoutAllView
+from knox.views import LogoutView as knoxLogoutView, LogoutAllView as knoxLogoutAllView
 
 
 router = routers.DefaultRouter()
@@ -21,7 +21,8 @@ urlpatterns = [
     path('users/', include('knox.urls')),
     path('signup/', UserRegisterAPIView.as_view()),
     path('login/', UserLoginAPIView.as_view()),
-    path('logout/', UserLogoutAPIView.as_view()),
+    path('logout/', knoxLogoutView.as_view()),
+    path('logoutall/', knoxLogoutAllView.as_view()),
     path('collections/', CollectionCreate.as_view()),
     path('collections/<int:pk>/', CollectionRetrieveUpdateDestroy.as_view()),
     path('collections/<int:collection>/cards/', CardCreate.as_view()),
