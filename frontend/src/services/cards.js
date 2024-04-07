@@ -18,9 +18,9 @@ class CardsDataService{
         return axios.put(`http://localhost:8000/api/collections/${collectionId}/cards/${CardId}/`, data);
     } 
     
-    deleteCard(id, token){
+    deleteCard(collectionId, CardId, token){
         axios.defaults.headers.common["Authorization"] = "Token " + token;
-        return axios.delete(`http://localhost:8000/api/collections/${id}/`);
+        return axios.delete(`http://localhost:8000/api/collections/${collectionId}/cards/${CardId}/`);
     }
 } 
 

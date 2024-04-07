@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 
-import CollectionsDataService from '../services/collections';
+import CardsDataService from '../services/cards';
 
 import Container from 'react-bootstrap/Container';
 import Card from 'react-bootstrap/Card';
@@ -9,28 +9,32 @@ import Button from 'react-bootstrap/Button';
 import Alert from 'react-bootstrap/Alert';
 
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
+import { useParams } from 'react-router-dom'
+
+import ReactFlipCard from 'reactjs-flip-card'
 import moment from 'moment';
 
-function CollectionsList(props) {
-    const [collections, setCollections] = useState([]);
+function CardsList(props) {
+    const [cards, setCards] = useState([]);
+    const { collectionId } = useParams();
 
-    const retrieveCollections = () => {
-        CollectionsDataService.getAll(props.token)
+    const retrieveCards = () => {
+        CardsDataService.getAllCards(collectionId, props.token)
         .then(response => {
-            setCollections(response.data);
-            console.log(collections);
+            setCards(response.data);
+            console.log(cards);
         })
         .catch((e) => console.log(e));
     };
 
     useEffect(() => {
-        retrieveCollections();
+        retrieveCards();
     }, [props.token]);
 
-    const deleteCollection = (collectionId) => {
-        CollectionsDataService.deleteCollection(collectionId, props.token)
+    const deleteCard = (CardId) => {
+        CardsDataService.deleteCollection(collectionId, CardId, props.token)
         .then(response => {
-            retrieveCollections();
+            retrieveCards();
         })
         .catch((e) => console.log(e));
     };
@@ -43,55 +47,42 @@ function CollectionsList(props) {
                 </Alert>
             ) : (
                 <div>
-                    <Link style={{"margin-right":"2px"}} to={"/collections"}>
-                        <Button variant="primary" className="mb-3" onClick={retrieveCollections}>
-                            Refresh
-                        </Button>
-                    </Link>
-                    
-                    <Link to={"/collections/new"}>
+                    <Link to={`/collections/${collectionId}/cards/new`}>
                         <Button variant="success" className="mb-3">
-                            Add a Collection
+                            Add a Card
                         </Button>
                     </Link>
                     <br/>
-                    {collections.map((collection) => {
+                    {cards.map((card) => {
                         return (
-                            <Card key={collection.id} className="mb-3" data-bs-theme="dark">
+                            <>
+                            <Card key={card.id} className="mb-3" data-bs-theme="dark">
                                 <Card.Body>
                                     <div style={{"margin-bottom":"1%"}}>
-                                        <Card.Title>{collection.name}</Card.Title>
-                                        <Card.Text><b>Description:</b> {collection.description}</Card.Text>
-                                        <Card.Text><b>Category:</b> {collection.category}</Card.Text>
-                                        <Card.Text><b>Created at:</b> {moment(collection.created_at).format("Do MMMM YYYY")}</Card.Text>
+                                        <Card.Title>{card.name}</Card.Title>
+                                        <Card.Text><b>Front:</b> {card.front}</Card.Text>
+                                        <Card.Text><b>Back:</b> {card.back}</Card.Text>
                                     </div>
                                     <div>
-                                    <Link to={{
-                                        pathname: "/collections/" + collection.id + "/cards",
-                                        state: {
-                                            currentCollection: collection
-                                        }
-                                        }}>
-                                        <Button variant="outline-info" className="me-2">
-                                            Cards
+                                        <Link to={{
+                                            pathname: `/collections/${collectionId}/cards/` + card.id,
+                                            state: {
+                                                currentCollection: card
+                                            }
+                                            }}>
+                                            <Button variant="outline-warning" className="me-2">
+                                                Edit Card
+                                            </Button>
+                                        </Link>
+                                        <Button variant="outline-danger" onClick={() => deleteCard(card.id)}>
+                                            Delete
                                         </Button>
-                                    </Link>
-                                    <Link to={{
-                                        pathname: "/collections/" + collection.id,
-                                        state: {
-                                            currentCollection: collection
-                                        }
-                                        }}>
-                                        <Button variant="outline-warning" className="me-2">
-                                            Edit collection data
-                                        </Button>
-                                    </Link>
-                                    <Button variant="outline-danger" onClick={() => deleteCollection(collection.id)}>
-                                        Delete
-                                    </Button>
                                     </div>
                                 </Card.Body>
-                    </Card>
+                                
+                            </Card>
+                    
+                    </>
                         )
                     })}
                 </div>
@@ -101,4 +92,4 @@ function CollectionsList(props) {
     );
 }
 
-export default CollectionsList;
+export default CardsList;

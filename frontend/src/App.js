@@ -98,16 +98,20 @@ function App() {
             <CollectionAddEdit {...props} token={token} />
           }>
           </Route>
-          <Route path="/collections/:id/" render={(props)=>
-            <CollectionAddEdit {...props} token={token} />
-          }>
-          </Route>
-          <Route path="/collections/:id/cards" render={(props)=>
+          <Route path="/collections/:collectionId/cards/" render={(props)=>
             <CardsList {...props} token={token} />
           }>
           </Route>
-          <Route path="/collections/:id/cards/:cardId" render={(props)=>
+          <Route path="/collections/:collectionId/cards/new" render={(props)=>
             <CardAddEdit {...props} token={token} />
+          }>
+          </Route>
+          <Route path="/collections/:collectionId/cards/:cardId" render={(props)=>
+            <CardAddEdit {...props} token={token} />
+          }>
+          </Route>
+          <Route exact path="/collections/:id/" render={(props)=>
+            <CollectionAddEdit {...props} token={token} />
           }>
           </Route>
           <Route exact path="/login" render={(props)=>
