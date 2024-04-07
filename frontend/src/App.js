@@ -94,30 +94,37 @@ function App() {
             <CollectionsList {...props} token={token} />
           }>
           </Route>
+
           <Route path="/collections/new" render={(props)=>
             <CollectionAddEdit {...props} token={token} />
           }>
           </Route>
-          <Route path="/collections/:collectionId/cards/" render={(props)=>
-            <CardsList {...props} token={token} />
-          }>
-          </Route>
+
           <Route path="/collections/:collectionId/cards/new" render={(props)=>
             <CardAddEdit {...props} token={token} />
           }>
           </Route>
+
           <Route path="/collections/:collectionId/cards/:cardId" render={(props)=>
             <CardAddEdit {...props} token={token} />
           }>
           </Route>
+
+          <Route path="/collections/:collectionId/cards/" render={(props)=>
+            <CardsList {...props} token={token} />
+          }>
+          </Route>
+
           <Route exact path="/collections/:id/" render={(props)=>
             <CollectionAddEdit {...props} token={token} />
           }>
           </Route>
+
           <Route exact path="/login" render={(props)=>
             <Login {...props} login={login} />
           }>
           </Route>
+          
           <Route path="/signup" render={(props)=>
             <Signup {...props} signup={signup} />
           }>
