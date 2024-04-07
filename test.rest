@@ -9,11 +9,11 @@ Content-Type: application/json
 
 ### LOgin and generate Token
 
-POST http://127.0.0.1:8000/api/users/login/
+POST http://127.0.0.1:8000/api/login/
 Content-Type: application/json
 
 {
-    "username": "user2",
+    "username": "user",
     "password": "password"
 }
 ###
@@ -127,8 +127,8 @@ Authorization: Token {{token1}}
 
 ###
 
-POST http://127.0.0.1:8000/api/users/logout/
-Authorization: Token ce337e2f763bba16253dfef35c29e473187f328768c6a1568fbba0d3ab1538b2
+POST http://localhost:8000/api/logout/
+Authorization: Token e40d6278004b8f413a53de4ac5d31ae86cbb78658a94995be6afe80cee713c59
 
 ###
 

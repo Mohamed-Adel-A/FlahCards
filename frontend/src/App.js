@@ -14,20 +14,59 @@ import CardAddEdit from './components/card-add-edit';
 
 import { Link, Switch, Route } from 'react-router-dom';
 
+import UserDataService from './services/user';
+
 function App() {
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(null);
+  const [error, setError] = useState('');
 
-  const login = () => {
-
+  async function login(user = null) {
+    UserDataService.login(user)
+    .then(response =>{
+      setUser(user.username);
+      setToken(response.data.token);
+      localStorage.setItem('user', user.username);
+      localStorage.setItem('token', response.data.token);
+      setError('');
+    })
+    .catch((e) => {
+      console.log('login', e);
+      setError(e.toString());
+    })
   }
 
   const logout = () => {
+    const data = {token: token};
+    console.log(data);
+    UserDataService.logout(data)
+    .then(response =>{
+      setUser('');
+      setToken('');
+      localStorage.setItem('user', '');
+      localStorage.setItem('token', '');
+      setError('');
+    })
+    .catch((e) => {
+      console.log('login', e);
+      setError(e.toString());
+    })
     
   }
 
   const signup = () => {
-    
+    UserDataService.signup(user)
+    .then(response =>{
+      setUser(user.username);
+      setToken(response.data.token);
+      localStorage.setItem('user', user.username);
+      localStorage.setItem('token', response.data.token);
+      setError('');
+    })
+    .catch((e) => {
+      console.log('login', e);
+      setError(e.toString());
+    })
   }
 
   return (
@@ -40,13 +79,13 @@ function App() {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
           <Container>
-              <Link class="nav-link" to={"/collections"}>Collections</Link>
+              <Link className="nav-link" to={"/collections"}>Collections</Link>
               { user ? (
-              <Link class="nav-link" onClick={logout}>Logout ({user})</Link>
+              <Link className="nav-link" to="" onClick={logout}>Logout ({user})</Link>
               ) : (
               <>
-                <Link class="nav-link" to={"/login"}>Login</Link>
-                <Link class="nav-link" to={"/signup"}>Sign Up</Link>
+                <Link className="nav-link" to={"/login"}>Login</Link>
+                <Link className="nav-link" to={"/signup"}>Sign Up</Link>
               </>
               )}
             </Container>
