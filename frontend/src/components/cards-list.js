@@ -98,17 +98,18 @@ function CardsList(props) {
                                         </Col>
                                         <Col  >
                                             <div className="d-grid gap-1" style={{"paddingBottom" : "10%"}}>
-                                                
-                                                    <Button style={{"width":"100%"}} size="sm" variant="warning" className="me-2" >
-                                                    <Link to={{
+                                            <Link to={{
                                                     pathname: `/collections/${collectionId}/cards/` + card.id,
                                                     state: {
-                                                        currentCollection: card
+                                                        currentCard: card
                                                     }
                                                     }}>
+                                                    <Button style={{"width":"100%"}} size="sm" variant="warning" className="me-2" >
+                                                    
                                                         Edit
-                                                        </Link>
+                                                        
                                                     </Button>
+                                                    </Link>
 
                                                 <Button size="sm" variant="danger" onClick={() => deleteCard(card.id)}>
                                                     Delete
