@@ -1,6 +1,7 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 
+import Landing from './Landing';
 import CollectionsDataService from '../services/collections';
 
 import Container from 'react-bootstrap/Container';
@@ -38,9 +39,12 @@ function CollectionsList(props) {
     return (
         <Container>
             {(props.token === "" || props.token == null) ? (
+                <div>
+                    <Landing />
                 <Alert variant='warning'>
                     Please <Link to={"/login"}>login</Link> or <Link to={"/signup"}>signup</Link> to see your card collections.
                 </Alert>
+                </div>
             ) : (
                 <div>
                     <Link style={{"margin-right":"2px"}} to={"/collections"}>

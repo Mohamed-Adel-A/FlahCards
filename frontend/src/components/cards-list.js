@@ -110,11 +110,9 @@ function CardsList(props) {
                                                         
                                                     </Button>
                                                     </Link>
-
                                                 <Button size="sm" variant="danger" onClick={() => deleteCard(card.id)}>
                                                     Delete
                                                 </Button>
-
                                             </div>
                                         </Col>
                                     </Row>

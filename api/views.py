@@ -95,7 +95,15 @@ class UserRegisterAPIView(APIView):
         serializer = UserSerializer(data=request.data)
         if serializer.is_valid():
             user = serializer.save()
-            return Response({'user': user.username, 'message': 'User registered successfully'}, status=status.HTTP_201_CREATED)
+            if user is not None:
+                login(request, user)
+                _, token = AuthToken.objects.create(user)#[1]
+                # get and formate token expiy 
+                datetime_format = knox_settings.EXPIRY_DATETIME_FORMAT
+                expiry = DateTimeField(format=datetime_format).to_representation(_.expiry)
+            return Response({'user': user.username,
+                             'message': 'User registered successfully',
+                             'token': token, 'expiry': expiry}, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 

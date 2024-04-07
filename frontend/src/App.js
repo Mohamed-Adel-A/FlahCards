@@ -66,7 +66,7 @@ function App() {
       <Navbar className="bg-body-tertiary" bg="dark" variant="dark" data-bs-theme="dark">
       <div className="container-fluid">
       <Container>
-        <Navbar.Brand href="#home">FlasCards App</Navbar.Brand>
+        <Navbar.Brand href="/">FlasCards App</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">

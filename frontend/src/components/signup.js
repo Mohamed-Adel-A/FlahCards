@@ -2,6 +2,7 @@ import React from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Container from 'react-bootstrap/Container';
+import Alert from 'react-bootstrap/Alert';
 
 import { useState } from 'react';
 
@@ -10,8 +11,9 @@ function Login(props) {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setcCnfirmPassword] = useState("");
-    const [passwordIsConfirmed, setPasswordIsConfirmed] = useState(false);
-    const [usernameConfirmed, setUsernameConfirmed] = useState(false);
+    const [passwordIsConfirmed, setPasswordIsConfirmed] = useState(true);
+    const [usernameConfirmed, setUsernameConfirmed] = useState(true);
+    const [signupCompleted, setSignupCompleted] = useState(false);
 
     const validatingForm = () => {
         if (username === "") {
@@ -61,11 +63,27 @@ function Login(props) {
     const signup = () => {
         props.signup({username: username, password: password});
         props.history.push('/');
+
+//        if (completed) {
+//            setSignupCompleted(true);
+//            props.history.push('/');
+//       } else {
+//            setSignupCompleted(false);
     }
+
 
     return (
         <Container>
-            <Form hasValidation>
+            { (signupCompleted) ? (
+                <Alert variant="success">
+                Signup Completed. You will be directed now.
+            </Alert>
+            ) : (
+                <Alert variant="info">
+                    Fill the form to signup for new account
+                </Alert>
+            )}
+            <Form>
                 <Form.Group className="mb-3" controlId="formBasicUsername">
                     <Form.Label>Username</Form.Label>
                     <Form.Control
@@ -82,7 +100,7 @@ function Login(props) {
                             Enter your username
                     </Form.Text>
                 </Form.Group>
-                <Form.Group className="mb-3" controlId="formBasicPassword">
+                <Form.Group className="mb-3" controlId="formBasicConfirmPassword">
                     <Form.Label>Password</Form.Label>
                     <Form.Control 
                         type="password" 
