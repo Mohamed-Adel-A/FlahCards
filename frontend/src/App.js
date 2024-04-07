@@ -17,8 +17,8 @@ import { Link, Switch, Route } from 'react-router-dom';
 import UserDataService from './services/user';
 
 function App() {
-  const [user, setUser] = useState(null);
-  const [token, setToken] = useState(null);
+  const [user, setUser] = useState(localStorage.getItem('user'));
+  const [token, setToken] = useState(localStorage.getItem('token'));
   const [error, setError] = useState('');
 
   async function login(user = null) {
