@@ -11,12 +11,24 @@ import Alert from 'react-bootstrap/Alert';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import { useParams } from 'react-router-dom'
 
-import ReactFlipCard from 'reactjs-flip-card'
-import moment from 'moment';
+import Collapse from 'react-bootstrap/Collapse';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Stack from 'react-bootstrap/Stack';
 
 function CardsList(props) {
     const [cards, setCards] = useState([]);
     const { collectionId } = useParams();
+    const [open, setOpen] = useState(false);
+
+    const [visibleItems, setVisibleItems] = useState({});
+
+    const toggleItemVisibility = (index) => {
+        setVisibleItems(prevState => ({
+            ...prevState,
+            [index]: !prevState[index]
+        }));
+    };
 
     const retrieveCards = () => {
         CardsDataService.getAllCards(collectionId, props.token)
@@ -32,7 +44,7 @@ function CardsList(props) {
     }, [props.token]);
 
     const deleteCard = (CardId) => {
-        CardsDataService.deleteCollection(collectionId, CardId, props.token)
+        CardsDataService.deleteCard(collectionId, CardId, props.token)
         .then(response => {
             retrieveCards();
         })
@@ -56,31 +68,55 @@ function CardsList(props) {
                     {cards.map((card) => {
                         return (
                             <>
-                            <Card key={card.id} className="mb-3" data-bs-theme="dark">
-                                <Card.Body>
-                                    <div style={{"margin-bottom":"1%"}}>
-                                        <Card.Title>{card.name}</Card.Title>
-                                        <Card.Text><b>Front:</b> {card.front}</Card.Text>
-                                        <Card.Text><b>Back:</b> {card.back}</Card.Text>
-                                    </div>
-                                    <div>
-                                        <Link to={{
-                                            pathname: `/collections/${collectionId}/cards/` + card.id,
-                                            state: {
-                                                currentCollection: card
-                                            }
-                                            }}>
-                                            <Button variant="outline-warning" className="me-2">
-                                                Edit Card
-                                            </Button>
-                                        </Link>
-                                        <Button variant="outline-danger" onClick={() => deleteCard(card.id)}>
-                                            Delete
-                                        </Button>
-                                    </div>
-                                </Card.Body>
+                            
+                            <Row className="align-items-center" >
+                                    <Col sm={9} className="text-center">
+                                        <Card key={card.id} className="mb-3" data-bs-theme="dark"
+                                            onClick={() => toggleItemVisibility(card.id)}
+                                            style={{"cursor" : "pointer"}}
+                                                >
+                                            <Card.Body>
+                                            <div style={{"margin-bottom":"1%"}}>
+                                                <Card.Title>{card.front}</Card.Title>
+                                                <div>
+                                                <Collapse in={visibleItems[card.id]} >
+                                                    <Card data-bs-theme="light">
+                                                        <Card.Body>
+                                                    
+                                                        <div id="example-collapse-text">
+                                                        <Card.Text data-bs-theme="light" ><b>{card.back}</b> </Card.Text>
+                                                        </div>
+                                                    
+                                                    </Card.Body>
+                                                    </Card>
+                                                    </Collapse>
+                                                </div>
+                                            </div>
+                                            </Card.Body>
                                 
-                            </Card>
+                                </Card>
+                                        </Col>
+                                        <Col  >
+                                            <div className="d-grid gap-1" style={{"paddingBottom" : "10%"}}>
+                                                
+                                                    <Button style={{"width":"100%"}} size="lg" variant="warning" className="me-2" >
+                                                    <Link to={{
+                                                    pathname: `/collections/${collectionId}/cards/` + card.id,
+                                                    state: {
+                                                        currentCollection: card
+                                                    }
+                                                    }}>
+                                                        Edit
+                                                        </Link>
+                                                    </Button>
+
+                                                <Button size="lg" variant="danger" onClick={() => deleteCard(card.id)}>
+                                                    Delete
+                                                </Button>
+
+                                            </div>
+                                        </Col>
+                                    </Row>
                     
                     </>
                         )
