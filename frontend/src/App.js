@@ -12,10 +12,23 @@ import CollectionAddEdit from './components/collection-add-edit';
 import CardsList from './components/cards-list';
 import CardAddEdit from './components/card-add-edit';
 
-import { Link } from 'react-router-dom';
+import { Link, Switch, Route } from 'react-router-dom';
 
 function App() {
   const [user, setUser] = useState(null);
+  const [token, setToken] = useState(null);
+
+  const login = () => {
+
+  }
+
+  const logout = () => {
+    
+  }
+
+  const signup = () => {
+    
+  }
 
   return (
     <div className="App">
@@ -29,7 +42,7 @@ function App() {
           <Container>
               <Link class="nav-link" to={"/collections"}>Collections</Link>
               { user ? (
-              <Link class="nav-link" >Logout ({user})</Link>
+              <Link class="nav-link" onClick={logout}>Logout ({user})</Link>
               ) : (
               <>
                 <Link class="nav-link" to={"/login"}>Login</Link>
@@ -42,9 +55,32 @@ function App() {
       </Container>
       </div>
     </Navbar>
-<br/>
+    <br/>
 
-      <Login />
+    <div className="container mt-4">
+        <Switch>
+          <Route exact path={["/", "/collections"]} render={(props) =>
+            <CollectionsList {...props} token={token} />
+          }>
+          </Route>
+          <Route path="/collections/new" render={(props)=>
+            <CollectionAddEdit {...props} token={token} />
+          }>
+          </Route>
+          <Route path="/collections/:id/" render={(props)=>
+            <CollectionAddEdit {...props} token={token} />
+          }>
+          </Route>
+          <Route exact path="/login" render={(props)=>
+            <Login {...props} login={login} />
+          }>
+          </Route>
+          <Route path="/signup" render={(props)=>
+            <Signup {...props} signup={signup} />
+          }>
+          </Route>
+        </Switch>
+      </div>
 
       <footer className="text-center text-lg-start bg-light text-muted mt-4">
         <div className="text-center p-4">
