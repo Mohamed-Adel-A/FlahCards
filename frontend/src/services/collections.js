@@ -15,12 +15,12 @@ class CollectionsDataService{
 
     updateCollection(id, data, token){
         axios.defaults.headers.common["Authorization"] = "Token " + token;
-        return axios.put(`http://localhost:8000/api/collections/${id}`, data);
+        return axios.put(`http://localhost:8000/api/collections/${id}/`, data);
     } 
     
     deleteCollection(id, token){
         axios.defaults.headers.common["Authorization"] = "Token " + token;
-        return axios.delete(`http://localhost:8000/api/collections/${id}`);
+        return axios.delete(`http://localhost:8000/api/collections/${id}/`);
     }
 } 
 
