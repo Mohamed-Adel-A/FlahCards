@@ -38,8 +38,8 @@ function CollectionsList(props) {
     return (
         <Container>
             {(props.token === "" || props.token == null) ? (
-                <Alert variant='info'>
-                    Please <Link to={"/login"}>login</Link> to see your card collections.
+                <Alert variant='warning'>
+                    Please <Link to={"/login"}>login</Link> or <Link to={"/signup"}>signup</Link> to see your card collections.
                 </Alert>
             ) : (
                 <div>

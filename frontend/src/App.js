@@ -124,7 +124,7 @@ function App() {
             <Login {...props} login={login} />
           }>
           </Route>
-          
+
           <Route path="/signup" render={(props)=>
             <Signup {...props} signup={signup} />
           }>
@@ -134,7 +134,7 @@ function App() {
 
       <footer className="text-center text-lg-start bg-light text-muted mt-4">
         <div className="text-center p-4">
-          © 2024 Copyright - <a
+          © 2024 Flash Cards App - <a
             target="_blank"
             className="text-reset fw-bold text-decoration-none"
             href=""
