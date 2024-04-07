@@ -46,6 +46,18 @@ function App() {
 
       <Login />
 
+      <footer className="text-center text-lg-start bg-light text-muted mt-4">
+        <div className="text-center p-4">
+          © 2024 Copyright - <a
+            target="_blank"
+            className="text-reset fw-bold text-decoration-none"
+            href=""
+          >
+            Mohamed Adel
+          </a>
+        </div>
+      </footer>
+
     </div>
   );
 }
