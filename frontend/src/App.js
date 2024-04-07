@@ -37,24 +37,16 @@ function App() {
   }
 
   const logout = () => {
-    const data = {token: token};
-    console.log(data);
-    UserDataService.logout(data)
-    .then(response =>{
-      setUser('');
-      setToken('');
-      localStorage.setItem('user', '');
-      localStorage.setItem('token', '');
-      setError('');
-    })
-    .catch((e) => {
-      console.log('login', e);
-      setError(e.toString());
-    })
+    UserDataService.logout(token)
+    setUser('');
+    setToken('');
+    localStorage.setItem('user', '');
+    localStorage.setItem('token', '');
+    setError('');
     
   }
 
-  const signup = () => {
+  const signup = (user = null) => {
     UserDataService.signup(user)
     .then(response =>{
       setUser(user.username);
