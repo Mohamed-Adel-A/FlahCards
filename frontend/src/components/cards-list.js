@@ -82,7 +82,7 @@ function CardsList(props) {
                                                 style={{"cursor" : "pointer"}}
                                                 >
                                                 <Card.Body>
-                                                <   Card.Title>{card.front}</Card.Title>
+                                                    <Card.Title>{card.front}</Card.Title>
                                                 </Card.Body>
                                             </Card>
                                         </div>
@@ -93,7 +93,7 @@ function CardsList(props) {
                                                 onClick={() => toggleItemFlip(card.id)}
                                                 >
                                                 <Card.Body>
-                                                    <Card.Text data-bs-theme="light" ><b>{card.back}</b> </Card.Text>
+                                                    <Card.Text><b>{card.back}</b> </Card.Text>
                                                 </Card.Body>
                                             </Card>
                                         </div>

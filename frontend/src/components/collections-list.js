@@ -47,7 +47,7 @@ function CollectionsList(props) {
                 </div>
             ) : (
                 <div>
-                    <Link style={{"margin-right":"2px"}} to={"/collections"}>
+                    <Link style={{"marginRight":"2px"}} to={"/collections"}>
                         <Button variant="primary" className="mb-3" onClick={retrieveCollections}>
                             Refresh
                         </Button>

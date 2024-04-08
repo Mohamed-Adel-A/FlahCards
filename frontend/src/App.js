@@ -36,7 +36,7 @@ function App() {
     })
   }
 
-  const logout = () => {
+  async function logout() {
     UserDataService.logout(token)
     setUser('');
     setToken('');
@@ -46,7 +46,7 @@ function App() {
     
   }
 
-  const signup = (user = null) => {
+  async function signup(user = null) {
     UserDataService.signup(user)
     .then(response =>{
       setUser(user.username);

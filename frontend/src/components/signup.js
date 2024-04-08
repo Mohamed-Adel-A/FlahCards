@@ -60,10 +60,16 @@ function Login(props) {
     }
 
 
-    const signup = () => {
-        props.signup({username: username, password: password});
-        props.history.push('/');
-
+    async function signup(e) {
+        e.preventDefault();
+        try {
+        await props.signup({username: username, password: password});
+        setSignupCompleted(true);
+        setTimeout(() => props.history.push('/') , 2000);
+        } catch (error) {
+            ;
+        }
+        
 //        if (completed) {
 //            setSignupCompleted(true);
 //            props.history.push('/');
