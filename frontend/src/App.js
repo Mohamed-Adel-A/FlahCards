@@ -33,6 +33,7 @@ function App() {
     .catch((e) => {
       console.log('login', e);
       setError(e.toString());
+      localStorage.setItem('error', error);
     })
   }
 
@@ -56,8 +57,9 @@ function App() {
       setError('');
     })
     .catch((e) => {
-      console.log('login', e);
-      setError(e.toString());
+      console.log('signup', e);
+      setError(e.message.toString());
+      localStorage.setItem('error', error);
     })
   }
 
