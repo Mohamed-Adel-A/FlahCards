@@ -11,20 +11,19 @@ import Alert from 'react-bootstrap/Alert';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import { useParams } from 'react-router-dom'
 
-import Collapse from 'react-bootstrap/Collapse';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import Stack from 'react-bootstrap/Stack';
+import ReactCardFlip from 'react-card-flip';
+
 
 function CardsList(props) {
     const [cards, setCards] = useState([]);
     const { collectionId } = useParams();
-    const [open, setOpen] = useState(false);
 
-    const [visibleItems, setVisibleItems] = useState({});
+    const [isFlippedItems, setIsFlippedItems] = useState({});
 
-    const toggleItemVisibility = (index) => {
-        setVisibleItems(prevState => ({
+    const toggleItemFlip = (index) => {
+        setIsFlippedItems(prevState => ({
             ...prevState,
             [index]: !prevState[index]
         }));
@@ -68,56 +67,59 @@ function CardsList(props) {
                     {cards.map((card) => {
                         return (
                             <>
-                            
                             <Row className="align-items-center" >
-                                    <Col sm={9} className="text-center">
-                                        <Card key={card.id} className="mb-3" data-bs-theme="dark"
-                                            onClick={() => toggleItemVisibility(card.id)}
-                                            style={{"cursor" : "pointer"}}
+                                <Col sm={9} className="text-center">
+                                    <ReactCardFlip 
+                                        key={card.id}
+                                        flipDirection="horizontal"
+                                        isFlipped={isFlippedItems[card.id]}
+                                    >
+                                        <div className='front'>
+                                            <Card key={card.id} 
+                                                className="mb-3" 
+                                                data-bs-theme="dark"
+                                                onClick={() => toggleItemFlip(card.id)}
+                                                style={{"cursor" : "pointer"}}
                                                 >
-                                            <Card.Body>
-                                            <div style={{"margin-bottom":"1%"}}>
-                                                <Card.Title>{card.front}</Card.Title>
-                                                <div>
-                                                <Collapse in={visibleItems[card.id]} >
-                                                    <Card data-bs-theme="light">
-                                                        <Card.Body>
-                                                    
-                                                        <div id="example-collapse-text">
-                                                        <Card.Text data-bs-theme="light" ><b>{card.back}</b> </Card.Text>
-                                                        </div>
-                                                    
-                                                    </Card.Body>
-                                                    </Card>
-                                                    </Collapse>
-                                                </div>
-                                            </div>
-                                            </Card.Body>
-                                
-                                </Card>
-                                        </Col>
-                                        <Col  >
-                                            <div className="d-grid gap-1" style={{"paddingBottom" : "10%"}}>
-                                            <Link to={{
-                                                    pathname: `/collections/${collectionId}/cards/` + card.id,
-                                                    state: {
-                                                        currentCard: card
-                                                    }
-                                                    }}>
-                                                    <Button style={{"width":"100%"}} size="sm" variant="warning" className="me-2" >
-                                                    
-                                                        Edit
-                                                        
-                                                    </Button>
-                                                    </Link>
-                                                <Button size="sm" variant="danger" onClick={() => deleteCard(card.id)}>
-                                                    Delete
-                                                </Button>
-                                            </div>
-                                        </Col>
-                                    </Row>
-                    
-                    </>
+                                                <Card.Body>
+                                                <   Card.Title>{card.front}</Card.Title>
+                                                </Card.Body>
+                                            </Card>
+                                        </div>
+                                        <div className='back'>
+                                            <Card 
+                                                className="mb-3"
+                                                data-bs-theme="light"
+                                                onClick={() => toggleItemFlip(card.id)}
+                                                >
+                                                <Card.Body>
+                                                    <Card.Text data-bs-theme="light" ><b>{card.back}</b> </Card.Text>
+                                                </Card.Body>
+                                            </Card>
+                                        </div>
+                                    </ReactCardFlip>
+                                </Col>
+                                <Col>
+                                    <div className="d-grid gap-1" style={{"paddingBottom" : "10%"}}>
+                                        <Link to={{
+                                            pathname: `/collections/${collectionId}/cards/` + card.id,
+                                            state: {
+                                                currentCard: card
+                                            }
+                                        }}>
+                                            <Button style={{"width":"100%"}} size="sm" variant="warning" className="me-2" >
+                                            
+                                                Edit
+                                                
+                                            </Button>
+                                        </Link>
+                                        <Button size="sm" variant="danger" onClick={() => deleteCard(card.id)}>
+                                            Delete
+                                        </Button>
+                                    </div>
+                                </Col>
+                            </Row>
+                            </>
                         )
                     })}
                 </div>
